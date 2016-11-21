@@ -14,6 +14,7 @@
 ##
 #################################################
 makeVector <- function(x = numeric()) {
+        ## initialize m variable to empty set
         m <- NULL
         set <- function(y) {
                 x <<- y
@@ -39,12 +40,19 @@ makeVector <- function(x = numeric()) {
 cachemean <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
         m <- x$getmean()
+        
+        ## if the inverse has already been calculated
         if(!is.null(m)) {
+                
+                ## get it from the cache and skips the computation.
                 message("getting cached data")
                 return(m)
         }
+        ## otherwise, calculates the inverse
         data <- x$get()
         m <- mean(data, ...)
+        
+        ## sets the value of the inverse in the cache via the setinv function.
         x$setmean(m)
         m
 }
